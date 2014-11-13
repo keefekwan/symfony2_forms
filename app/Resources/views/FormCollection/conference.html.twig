@@ -1,0 +1,39 @@
+{# app/Resources/views/Conference/conference.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    {#{{ form(form) }}#}
+    <a href="{{ path('conference') }}">Back to Conferences</a>
+    <h3>Conference</h3>
+
+    {{ form_start(form) }}
+
+    {{ form_row(form.name) }}
+
+    <hr style="width: 30%; margin-left: 20px;">
+
+    <h3>Speakers</h3>
+        <ul style="list-style-type: none;" class="speakers" data-prototype="{{ form_widget(form.speakers.vars.prototype)|e }}">
+            {% for speaker in form.speakers %}
+                <li>{{ form_row(speaker.name) }}</li>
+            {% endfor %}
+        </ul>
+
+    {% do form.speakers.setRendered %}
+
+    <hr style="width: 30%; margin-left: 20px;">
+
+    {{ form_end(form) }}
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {% javascripts
+        '@KKFormsBundle/Resources/public/js/speakers.js'
+    %}
+    <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+{% endblock %}
+

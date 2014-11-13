@@ -1,0 +1,38 @@
+{# app/Resource/views/Account/index.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h3>Dynamic Form</h3>
+    {# Display the form #}
+    {{ form(form) }}
+
+    {# Add ajax thingie that will update the city select box #}
+    {#<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>#}
+    {#<script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>#}
+
+    {% block javascripts %}
+        {{ parent() }}
+    {% endblock %}
+
+    <script type="text/javascript">
+        $(document).ready(function (){
+            $('#account_type_province').change(function(){
+                var val = $(this).val();
+                $.ajax({
+                    type: "POST",
+                    url: "{{ url('province_ajax_call') }}?province_id=" + val,
+                    success: function(data) {
+
+                        // Remove current options
+                        $('#account_type_city').html('');
+
+                        $.each(data, function(k, v) {
+                            $('#account_type_city').append('<option value="' + v + '">' + k + '</option>');
+                        });
+                    }
+                });
+                return false;
+            });
+        });
+    </script>
+{% endblock %}

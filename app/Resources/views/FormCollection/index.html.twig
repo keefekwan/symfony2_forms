@@ -1,0 +1,17 @@
+{# app/Resources/views/Conference/conference.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <h3>Conferences</h3>
+    <a href="{{ path('conference_add') }}">Add Conference</a>
+
+    {% for conf in conference %}
+        <ul>
+            <li>{{ conf.name }}</li>
+            <a href="{{ path('conference_update', { 'id': conf.id }) }}">Edit</a>
+        </ul>
+    {% endfor %}
+
+{% endblock %}
+

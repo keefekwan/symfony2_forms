@@ -1,0 +1,5 @@
+kk_forms:
+    resource: "@KKFormsBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
